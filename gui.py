@@ -1,6 +1,8 @@
 from Tkinter import *
 from PIL import Image, ImageTk
-from SimpleCV import Camera, VideoStream, Color, Display
+import cv2
+import multiprocessing
+import threading
 
 
 class App(Tk):
@@ -55,13 +57,24 @@ class VitalsPage(Frame):
         w_label = Label(self, text="We will now check your vitals. Please stand still and look into the camera.")
         w_label.pack()
 
-        vs = VideoStream(fps=20, filename=fname, framefill=False)
-        cam = Camera()
-        disp = Display((800, 600))
-        while disp.isNotDone():
-            img = cam.getImage()
-            vs.writeFrame(img)
-            img.save(disp)
+        cap = cv2.VideoCapture(0)
+        lmain = Label(self)
+        lmain.pack()
+        #cap.set(cv2.CAP_PROP_FRAME_WIDTH, 800)
+        #cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 600)
+
+        def show_frame():
+            _, frame = cap.read()
+            frame = cv2.flip(frame, 1)
+            cv2image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGBA)
+            img = Image.fromarray(cv2image)
+            imgtk = ImageTk.PhotoImage(image=img)
+            lmain.imgtk = imgtk
+            lmain.configure(image=imgtk)
+            lmain.after(10, show_frame)
+
+        show_frame()
+
 
 if __name__ == "__main__":
     app = App()
