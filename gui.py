@@ -47,12 +47,11 @@ class WelcomePage(Frame):
         w_button.pack(fill=BOTH, expand=1, padx=2, pady=2)
 
 class VitalsPage(Frame):
-    fname = 'test.avi'
-
     def __init__(self, parent, controller):
         Frame.__init__(self, parent)
         self.controller = controller
 
+        fname = 'test.avi'
         w_label = Label(self, text="We will now check your vitals. Please stand still and look into the camera.")
         w_label.pack()
 
@@ -61,7 +60,6 @@ class VitalsPage(Frame):
         disp = Display((800, 600))
         while disp.isNotDone():
             img = cam.getImage()
-            img = img.edges()
             vs.writeFrame(img)
             img.save(disp)
 
