@@ -3,7 +3,7 @@ import numpy as np
 import sys
 import time
 import matplotlib.pyplot as plt
-from matplot import function_plot
+#from matplot import function_plot
 
 
 count1 = 1
@@ -16,6 +16,7 @@ video_capture = cv2.VideoCapture('/home/shubham/Desktop/noflicker-ideal-from-0.8
 detector = cv2.SimpleBlobDetector()
 
 file_object = open('sample.txt', 'w')
+graph_data =[]
 
 while (video_capture.isOpened()):
 
@@ -89,11 +90,35 @@ while (video_capture.isOpened()):
     region = frame[y:y+h,x:x+w]        
     print(region.mean())
 
+    # TODO: hacky
+    graph_data.append(region.mean())
     
     
     file_object.write(str(count1)+"," +str(int(region.mean()))+'\n')
-    #plt.plot(time.time(), region.mean(), linewidth=2.0)
+    plt.plot(time.time(),graph_data, linewidth=2.0)
     #plt.show()
+
+
+
+    # Make a random plot...
+    import matplotlib.pyplot as plt
+    import numpy as np
+    import matplotlib
+
+    fig = plt.figure()
+    fig.add_subplot(graph_data)
+
+    # If we haven't already shown or saved the plot, then we need to
+    # draw the figure first...
+    fig.canvas.draw()
+
+    # Now we can save it to a numpy array.
+    data = np.fromstring(fig.canvas.tostring_rgb(), dtype=np.uint8, sep='')
+    data = data.reshape(fig.canvas.get_width_height()[::-1] + (3,))
+    cv2.imshow('Video3', data)
+
+    # -----------------
+
 
     # Display the resulting frame
     cv2.imshow('Video', region)
