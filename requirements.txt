@@ -8,6 +8,6 @@ pygame==1.9.2b1
 pyparsing==2.1.5
 python-dateutil==2.5.3
 pytz==2016.6.1
-scipy==0.18.0
+scipy==1.10.0
 SimpleCV==1.3
 six==1.10.0
