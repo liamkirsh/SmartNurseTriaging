@@ -1,4 +1,4 @@
-aubio===0.4.3alpha-libaubio
+aubio===0.4.9
 cycler==0.10.0
 matplotlib==1.5.1
 numpy==1.11.1+mkl
