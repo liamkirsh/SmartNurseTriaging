@@ -2,7 +2,7 @@ aubio===0.4.3alpha-libaubio
 cycler==0.10.0
 matplotlib==1.5.1
 numpy==1.11.1+mkl
-Pillow==3.3.0
+Pillow==10.0.1
 PyAudio==0.2.9
 pygame==1.9.2b1
 pyparsing==2.1.5
